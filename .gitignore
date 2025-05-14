@@ -1,0 +1,50 @@
+# ==== Squema =====
+crear_estructura.sh
+
+# === Java / Spring Boot ===
+target/
+*.log
+*.class
+*.jar
+*.war
+*.iml
+.idea/
+*.ipr
+*.iws
+*.bat
+*.swp
+
+# === Spring Boot config ===
+application*.yml
+application*.properties
+.env
+
+# === Maven ===
+.mvn/
+.settings/
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# === Angular ===
+node_modules/
+dist/
+out-tsc/
+.angular/
+coverage/
+package-lock.json
+npm-debug.log
+
+# === Docker ===
+*.env
+.docker/
+docker-compose.override.yml
+.env.*
+
+# === IDEs ===
+.vscode/
+*.code-workspace
+*.DS_Store
+
+# === OS ===
+Thumbs.db
+.DS_Store
