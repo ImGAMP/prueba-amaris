@@ -1,14 +1,11 @@
 package com.amaris.backend.client;
 
+import com.amaris.backend.dto.EmpleadoListResponse;
 import com.amaris.backend.dto.EmpleadoResponse;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class EmpleadoClient {
@@ -20,17 +17,19 @@ public class EmpleadoClient {
     }
 
     public List<EmpleadoResponse> getAllEmpleados() {
-        ResponseEntity<Map<String, List<EmpleadoResponse>>> response = restTemplate.exchange(
+        EmpleadoListResponse response = restTemplate.getForObject(
                 "http://dummy.restapiexample.com/api/v1/employees",
-                org.springframework.http.HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {}
+                EmpleadoListResponse.class
         );
-        return response.getBody().get("data");
+        return response != null ? response.getData() : List.of();
     }
 
     public EmpleadoResponse getEmpleadoById(int id) {
-        return new RestTemplate().getForObject("http://dummy.restapiexample.com/api/v1/employee/" + id, EmpleadoWrapper.class).getData();
+        EmpleadoWrapper response = restTemplate.getForObject(
+                "http://dummy.restapiexample.com/api/v1/employee/" + id,
+                EmpleadoWrapper.class
+        );
+        return response != null ? response.getData() : null;
     }
 
     static class EmpleadoWrapper {
