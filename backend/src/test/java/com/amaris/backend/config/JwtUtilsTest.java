@@ -13,7 +13,8 @@ class JwtUtilsTest {
     @BeforeEach
     void setUp() {
         jwtUtils = new JwtUtils();
-        ReflectionTestUtils.setField(jwtUtils, "secret", "mySecretKeyJWT-am@ris2025");
+        // Secreto de al menos 256 bits (32 bytes). Puedes reemplazar por cualquier string seguro.
+        ReflectionTestUtils.setField(jwtUtils, "secret", "mySuperSecureSecretKeyThatIs32Bytes!!");
         ReflectionTestUtils.setField(jwtUtils, "expiration", 3600000L);
     }
 
@@ -27,6 +28,6 @@ class JwtUtilsTest {
 
     @Test
     void testInvalidToken() {
-        assertFalse(jwtUtils.validateToken("invalid.token.value"));
+        assertFalse(jwtUtils.validateToken("this.is.an.invalid.token"));
     }
 }
