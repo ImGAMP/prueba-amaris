@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 class EmpleadoClientTest {
@@ -29,33 +30,36 @@ class EmpleadoClientTest {
 
     @Test
     void testGetAllEmpleadosReturnsList() {
-        EmpleadoResponse e = new EmpleadoResponse();
-        e.setId(1);
-        e.setEmployee_name("Test");
+        EmpleadoResponse mockEmpleado = new EmpleadoResponse();
+        mockEmpleado.setId(1);
+        mockEmpleado.setEmployee_name("Test Employee");
 
         EmpleadoListResponse wrapper = new EmpleadoListResponse();
-        wrapper.setData(List.of(e));
+        wrapper.setData(List.of(mockEmpleado));
 
         when(restTemplate.getForObject(anyString(), eq(EmpleadoListResponse.class))).thenReturn(wrapper);
 
         List<EmpleadoResponse> result = empleadoClient.getAllEmpleados();
+
+        assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("Test", result.get(0).getEmployee_name());
+        assertEquals("Test Employee", result.get(0).getEmployee_name());
     }
 
     @Test
     void testGetEmpleadoByIdReturnsData() {
-        EmpleadoClient.EmpleadoWrapper wrapper = new EmpleadoClient.EmpleadoWrapper();
         EmpleadoResponse emp = new EmpleadoResponse();
         emp.setId(1);
-        emp.setEmployee_name("Test User");
+        emp.setEmployee_name("John Doe");
+
+        EmpleadoClient.EmpleadoWrapper wrapper = new EmpleadoClient.EmpleadoWrapper();
         wrapper.setData(emp);
 
         when(restTemplate.getForObject(contains("/employee/"), eq(EmpleadoClient.EmpleadoWrapper.class))).thenReturn(wrapper);
 
         EmpleadoResponse result = empleadoClient.getEmpleadoById(1);
         assertNotNull(result);
-        assertEquals("Test User", result.getEmployee_name());
+        assertEquals("John Doe", result.getEmployee_name());
     }
 
     @Test
@@ -67,7 +71,7 @@ class EmpleadoClientTest {
     }
 
     @Test
-    void testGetEmpleadoByIdReturnsNull() {
+    void testGetEmpleadoByIdReturnsNullWhenEmpty() {
         when(restTemplate.getForObject(contains("/employee/"), eq(EmpleadoClient.EmpleadoWrapper.class))).thenReturn(null);
         EmpleadoResponse result = empleadoClient.getEmpleadoById(999);
         assertNull(result);

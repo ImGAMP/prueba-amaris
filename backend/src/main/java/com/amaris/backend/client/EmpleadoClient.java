@@ -12,8 +12,8 @@ public class EmpleadoClient {
 
     private final RestTemplate restTemplate;
 
-    public EmpleadoClient() {
-        this.restTemplate = new RestTemplate();
+    public EmpleadoClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public List<EmpleadoResponse> getAllEmpleados() {
