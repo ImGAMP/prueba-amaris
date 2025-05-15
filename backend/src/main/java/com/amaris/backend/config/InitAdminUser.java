@@ -22,10 +22,10 @@ public class InitAdminUser {
             if (usuarioRepository.findByUsername(username).isEmpty()) {
                 Usuario usuario = new Usuario();
                 usuario.setUsername(username);
-                usuario.setPassword(encoder.encode("admin123"));
+                usuario.setPassword(encoder.encode("1234"));
                 usuario.setEnabled(true);
                 usuarioRepository.save(usuario);
-                System.out.println("Usuario admin creado con contraseña: admin123");
+                System.out.println("Usuario admin creado con contraseña: 1234");
             }
         };
     }
