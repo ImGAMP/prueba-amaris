@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: amaris_postgres
+    environment:
+      POSTGRES_DB: amaris
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/init:/docker-entrypoint-initdb.d
+    networks:
+      - amaris-net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: amaris_backend
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/amaris
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - amaris-net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: amaris_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - amaris-net
+
+volumes:
+  postgres-data:
+
+networks:
+  amaris-net:
+    driver: bridge

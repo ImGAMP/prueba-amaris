@@ -1,0 +1,14 @@
+.navbar {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+
+  &.active,
+  &:hover {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+  }
+}

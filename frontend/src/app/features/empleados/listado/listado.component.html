@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Listado de Empleados</h2>
+    <button class="btn btn-outline-secondary" (click)="cargarEmpleados()">
+      <i class="bi bi-arrow-clockwise"></i> Recargar
+    </button>
+  </div>
+
+  <form class="row g-3 mb-4" (ngSubmit)="buscarPorId()">
+    <div class="col-auto">
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="busquedaId"
+        name="busquedaId"
+        placeholder="Buscar por ID"
+      />
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" type="submit">Buscar</button>
+    </div>
+  </form>
+
+  <div *ngIf="loading" class="alert alert-info">
+    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+    Cargando empleados...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <table class="table table-striped table-hover align-middle" *ngIf="empleados.length">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Salario Mensual</th>
+        <th scope="col">Salario Anual</th>
+        <th scope="col">Edad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of empleados">
+        <th scope="row">{{ e.id }}</th>
+        <td>{{ e.employee_name }}</td>
+        <td>{{ e.employee_salary | currency:'USD' }}</td>
+        <td>{{ e.salary_anual | currency:'USD' }}</td>
+        <td>{{ e.employee_age }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!empleados.length && !loading && !error" class="alert alert-warning">
+    No hay empleados disponibles.
+  </div>
+</div>

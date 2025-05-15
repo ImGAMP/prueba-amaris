@@ -56,6 +56,7 @@ class EmpleadoControllerTest {
         assertEquals(404, response.getStatusCodeValue());
     }
 
+    @SuppressWarnings("null")
     @Test
     void testGetAllHandlesEmptyList() {
         when(empleadoClient.getAllEmpleados()).thenReturn(List.of());

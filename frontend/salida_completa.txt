@@ -1,0 +1,136 @@
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+[33m15 05 2025 14:40:00.638:WARN [karma]: [39mNo captured browser, open http://localhost:9876/
+[32m15 05 2025 14:40:00.646:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m15 05 2025 14:40:00.647:INFO [launcher]: [39mLaunching browsers Chrome with concurrency unlimited
+[32m15 05 2025 14:40:00.649:INFO [launcher]: [39mStarting browser Chrome
+[32m15 05 2025 14:40:01.112:INFO [Chrome 129.0.0.0 (Linux x86_64)]: [39mConnected on socket TVnoldtHKVPOnsCJAAAB with id 97368001
+Chrome 129.0.0.0 (Linux x86_64): Executed 0 of 13[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 1 of 13[32m SUCCESS[39m (0 secs / 0.011 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 2 of 13[32m SUCCESS[39m (0 secs / 0.061 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 3 of 13[32m SUCCESS[39m (0 secs / 0.073 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 4 of 13[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 5 of 13[32m SUCCESS[39m (0 secs / 0.083 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 6 of 13[32m SUCCESS[39m (0 secs / 0.087 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 7 of 13[32m SUCCESS[39m (0 secs / 0.102 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 8 of 13[32m SUCCESS[39m (0 secs / 0.104 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 9 of 13[32m SUCCESS[39m (0 secs / 0.107 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 10 of 13[32m SUCCESS[39m (0 secs / 0.108 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 11 of 13[32m SUCCESS[39m (0 secs / 0.119 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 12 of 13[32m SUCCESS[39m (0 secs / 0.121 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0 secs / 0.133 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.133 secs)
+[32mTOTAL: 13 SUCCESS[39m
+TOTAL: 13 SUCCESS
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Some of your tests did a full page reload!
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.133 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Some of your tests did a full page reload!
+[33m15 05 2025 14:40:08.399:WARN [Chrome 129.0.0.0 (Linux x86_64)]: [39mDisconnected (0 times) Client disconnected from CONNECTED state (transport close)
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected Client disconnected from CONNECTED state (transport close)
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.133 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected Client disconnected from CONNECTED state (transport close)
+[91m15 05 2025 14:40:08.493:ERROR [launcher]: [39mChrome crashed.
+	[472987:472987:0515/144001.033382:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+[473032:473032:0515/144004.816688:ERROR:gl_surface_presentation_helper.cc(260)] GetVSyncParametersIfAvailable() failed for 1 times!
+
+[91m15 05 2025 14:40:08.494:ERROR [launcher]: [39mChrome stdout: 
+[91m15 05 2025 14:40:08.494:ERROR [launcher]: [39mChrome stderr: [472987:472987:0515/144001.033382:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+[473032:473032:0515/144004.816688:ERROR:gl_surface_presentation_helper.cc(260)] GetVSyncParametersIfAvailable() failed for 1 times!
+
+[32m15 05 2025 14:40:08.520:INFO [launcher]: [39mTrying to start Chrome again (1/2).
+[32m15 05 2025 14:40:09.191:INFO [Chrome 129.0.0.0 (Linux x86_64)]: [39mConnected on socket D5AkakGrjy2zuZD1AAAD with id 97368001
+Chrome 129.0.0.0 (Linux x86_64): Executed 0 of 13[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 1 of 13[32m SUCCESS[39m (0 secs / 0.058 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 2 of 13[32m SUCCESS[39m (0 secs / 0.075 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 3 of 13[32m SUCCESS[39m (0 secs / 0.091 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 4 of 13[32m SUCCESS[39m (0 secs / 0.102 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 5 of 13[32m SUCCESS[39m (0 secs / 0.107 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 6 of 13[32m SUCCESS[39m (0 secs / 0.116 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 7 of 13[32m SUCCESS[39m (0 secs / 0.12 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 8 of 13[32m SUCCESS[39m (0 secs / 0.121 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 9 of 13[32m SUCCESS[39m (0 secs / 0.125 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 10 of 13[32m SUCCESS[39m (0 secs / 0.129 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 11 of 13[32m SUCCESS[39m (0 secs / 0.13 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 12 of 13[32m SUCCESS[39m (0 secs / 0.132 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0 secs / 0.135 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.165 secs / 0.135 secs)
+[32mTOTAL: 13 SUCCESS[39m
+TOTAL: 13 SUCCESS
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Some of your tests did a full page reload!
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.165 secs / 0.135 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Some of your tests did a full page reload!
+[33m15 05 2025 14:40:13.863:WARN [Chrome 129.0.0.0 (Linux x86_64)]: [39mDisconnected (0 times) Client disconnected from CONNECTED state (transport close)
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected Client disconnected from CONNECTED state (transport close)
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.165 secs / 0.135 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected Client disconnected from CONNECTED state (transport close)
+[91m15 05 2025 14:40:13.946:ERROR [launcher]: [39mChrome crashed.
+	[473244:473244:0515/144009.106168:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+
+[91m15 05 2025 14:40:13.947:ERROR [launcher]: [39mChrome stdout: 
+[91m15 05 2025 14:40:13.947:ERROR [launcher]: [39mChrome stderr: [473244:473244:0515/144009.106168:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+
+[32m15 05 2025 14:40:13.969:INFO [launcher]: [39mTrying to start Chrome again (2/2).
+[32m15 05 2025 14:40:14.584:INFO [Chrome 129.0.0.0 (Linux x86_64)]: [39mConnected on socket 8KZ9uHe-Z0LscP2NAAAF with id 97368001
+Chrome 129.0.0.0 (Linux x86_64): Executed 0 of 13[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 1 of 13[32m SUCCESS[39m (0 secs / 0.011 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 2 of 13[32m SUCCESS[39m (0 secs / 0.014 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 3 of 13[32m SUCCESS[39m (0 secs / 0.019 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 4 of 13[32m SUCCESS[39m (0 secs / 0.022 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 5 of 13[32m SUCCESS[39m (0 secs / 0.06 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 6 of 13[32m SUCCESS[39m (0 secs / 0.065 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 7 of 13[32m SUCCESS[39m (0 secs / 0.087 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 8 of 13[32m SUCCESS[39m (0 secs / 0.101 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 9 of 13[32m SUCCESS[39m (0 secs / 0.114 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 10 of 13[32m SUCCESS[39m (0 secs / 0.121 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 11 of 13[32m SUCCESS[39m (0 secs / 0.125 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 12 of 13[32m SUCCESS[39m (0 secs / 0.126 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0 secs / 0.136 secs)
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+[32mTOTAL: 13 SUCCESS[39m
+TOTAL: 13 SUCCESS
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Some of your tests did a full page reload!
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Some of your tests did a full page reload!
+[33m15 05 2025 14:40:18.251:WARN [Chrome 129.0.0.0 (Linux x86_64)]: [39mDisconnected (0 times) Client disconnected from CONNECTED state (transport close)
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected Client disconnected from CONNECTED state (transport close)
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected Client disconnected from CONNECTED state (transport close)
+[91m15 05 2025 14:40:18.309:ERROR [launcher]: [39mChrome crashed.
+	[473440:473440:0515/144014.493367:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+
+[91m15 05 2025 14:40:18.310:ERROR [launcher]: [39mChrome stdout: 
+[91m15 05 2025 14:40:18.310:ERROR [launcher]: [39mChrome stderr: [473440:473440:0515/144014.493367:ERROR:object_proxy.cc(576)] Failed to call method: org.freedesktop.ScreenSaver.GetActive: object_path= /org/freedesktop/ScreenSaver: org.freedesktop.DBus.Error.NotSupported: This method is not part of the idle inhibition specification: https://specifications.freedesktop.org/idle-inhibit-spec/latest/
+
+[91m15 05 2025 14:40:18.324:ERROR [launcher]: [39mChrome failed 2 times (crashed). Giving up.
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected , because no message in 30000 ms.
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected , because no message in 30000 ms.
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected , because no message in 30000 ms.
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected , because no message in 30000 ms.
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[32m SUCCESS[39m (0.162 secs / 0.136 secs)
+[1A[2K[31mChrome 129.0.0.0 (Linux x86_64) ERROR[39m
+  Disconnected , because no message in 30000 ms.
+Chrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[31m DISCONNECTED[39m (32.474 secs / 0.136 secs)
+Chrome 129.0.0.0 (Linux x86_64) ERROR
+  Disconnected , because no message in 30000 ms.
+[1A[2KChrome 129.0.0.0 (Linux x86_64): Executed 13 of 13[31m DISCONNECTED[39m (32.474 secs / 0.136 secs)
