@@ -6,7 +6,7 @@ Este proyecto es una solución técnica para la evaluación de candidatos al rol
 
 La solución se divide en dos aplicaciones desacopladas:
 
-- **Backend**: Java con Spring Boot y JWT (packaging WAR)
+- **Backend**: Java con Spring Boot y JWT (packaging WAR compatible con WildFly o ejecución embebida)
 - **Frontend**: Angular 17 SSR con autenticación y consumo del backend
 
 ## 🧩 Estructura general del repositorio
@@ -15,7 +15,6 @@ La solución se divide en dos aplicaciones desacopladas:
 ├── backend/        → API REST con Spring Boot (Java 17)
 ├── frontend/       → Aplicación Angular 17 (SSR-ready)
 └── docker-compose.yml
-
 ```
 
 ## 🔐 Autenticación
@@ -34,7 +33,7 @@ La solución se divide en dos aplicaciones desacopladas:
 | Persistencia          | JPA + PostgreSQL                         |
 | Cliente externo       | Consumo de `https://dummy.restapiexample.com` |
 | Pruebas               | JUnit + Mockito (alta cobertura con JaCoCo) |
-| Empaquetado           | `.war` listo para WildFly o Docker       |
+| Empaquetado           | `.war` listo para WildFly o ejecución embebida |
 
 ## 💻 Frontend (Angular 17)
 
@@ -61,14 +60,14 @@ La solución se divide en dos aplicaciones desacopladas:
 docker compose up --build
 ```
 
-Backend disponible en: `http://localhost:8080`  
-Frontend disponible en: `http://localhost:4200`
+- Backend: `http://localhost:8080`
+- Frontend: `http://localhost:4200`
 
-### Correr backend manualmente
+### Correr backend manualmente (Spring Boot autocontenedor)
 
 ```bash
 cd backend
-./mvnw clean package
+mvn clean package
 java -jar target/prueba-amaris.war
 ```
 
@@ -86,19 +85,19 @@ ng serve
 
 ```bash
 cd backend
-./mvnw test
+mvn test
 ```
 
-- JaCoCo habilitado (`target/site/jacoco/index.html`)
+- JaCoCo habilitado → `target/site/jacoco/index.html`
 
 ### Frontend
 
 ```bash
 cd frontend
-ng test
+npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
 ```
 
-- Ejecuta 13 pruebas unitarias usando `ChromeHeadless`
+- Ejecuta 13 pruebas unitarias con reporte de cobertura
 
 ## 🧰 Endpoints clave
 
@@ -107,12 +106,21 @@ ng test
 - `GET /api/usuarios` → Listado de usuarios
 - `GET /api/empleados` → Proxy a dummy.restapiexample.com
 
-## 📌 Características adicionales
+## 📦 Despliegue en WildFly (opcional)
 
-- Patrón JSON:API en todas las respuestas
-- Alto cumplimiento de principios SOLID
-- Logs seguros con Spring Boot Actuator desactivado por defecto
-- CORS configurado para `localhost:4200`
+1. Empaquetar el proyecto:
+   ```bash
+   mvn clean package -DskipTests
+   ```
+2. Copiar `target/prueba-amaris.war` al directorio de despliegue de WildFly:
+   ```bash
+   cp target/prueba-amaris.war $WILDFLY_HOME/standalone/deployments/
+   ```
+3. Iniciar WildFly:
+   ```bash
+   $WILDFLY_HOME/bin/standalone.sh
+   ```
+4. Acceder al backend: `http://localhost:8080/prueba-amaris/api`
 
 ## 📄 Credenciales de prueba
 

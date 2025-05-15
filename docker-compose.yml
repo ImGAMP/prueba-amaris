@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   postgres:
     image: postgres:15
     container_name: amaris_postgres
@@ -13,7 +12,6 @@ services:
       - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./backend/init:/docker-entrypoint-initdb.d
     networks:
       - amaris-net
 
