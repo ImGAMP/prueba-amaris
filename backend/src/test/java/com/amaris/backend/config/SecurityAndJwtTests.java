@@ -45,11 +45,6 @@ class SecurityAndJwtTests {
         assertNotNull(chain);
     }
 
-    @Test
-    void testCorsConfigurationSource() {
-        CorsConfigurationSource source = securityConfig.corsConfigurationSource();
-        assertNotNull(source);
-    }
 
     @Test
     void testAuthenticationManager() throws Exception {

@@ -21,7 +21,6 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <!-- Spring Boot BOM para versiones centralizadas -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -35,7 +34,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Spring Boot web con Undertow -->
+        <!-- Spring Boot web con Undertow (excluye logging default) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -44,11 +43,23 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!-- Logging compatible con WildFly -->
+        <dependency>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logmanager</artifactId>
+            <version>2.0.1.Final</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- JSON:API (Jackson) -->
@@ -106,79 +117,78 @@
     </dependencies>
 
     <build>
-  <finalName>prueba-amaris</finalName>
-  <plugins>
-    <!-- Plugin Spring Boot para empaquetado WAR ejecutable -->
-    <plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-      <configuration>
-        <mainClass>com.amaris.backend.PruebaAmarisApplication</mainClass>
-      </configuration>
-    </plugin>
+        <finalName>prueba-amaris</finalName>
+        <plugins>
+            <!-- Plugin Spring Boot para WAR ejecutable -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.amaris.backend.PruebaAmarisApplication</mainClass>
+                    <layout>WAR</layout>
+                </configuration>
+            </plugin>
 
-    <!-- Plugin WAR actualizado -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-war-plugin</artifactId>
-      <version>3.3.2</version>
-    </plugin>
+            <!-- WAR plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
 
-    <!-- JaCoCo para cobertura -->
-    <plugin>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.10</version>
-      <executions>
-        <execution>
-          <id>prepare-agent</id>
-          <goals>
-            <goal>prepare-agent</goal>
-          </goals>
-        </execution>
-        <execution>
-          <id>report</id>
-          <phase>verify</phase>
-          <goals>
-            <goal>report</goal>
-          </goals>
-          <configuration>
-            <excludes>
-              <exclude>**/dto/**</exclude>
-              <exclude>**/model/**</exclude>
-              <exclude>**/config/InitAdminUser*</exclude>
-              <exclude>**/config/RestTemplateConfig*</exclude>
-              <exclude>**/PruebaAmarisApplication*</exclude>
-            </excludes>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
+            <!-- JaCoCo para cobertura -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/dto/**</exclude>
+                                <exclude>**/model/**</exclude>
+                                <exclude>**/config/InitAdminUser*</exclude>
+                                <exclude>**/config/RestTemplateConfig*</exclude>
+                                <exclude>**/PruebaAmarisApplication*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-    <!-- Plugin para recursos con encoding -->
-    <plugin>
-      <artifactId>maven-resources-plugin</artifactId>
-      <version>3.3.1</version>
-      <configuration>
-        <encoding>UTF-8</encoding>
-      </configuration>
-    </plugin>
+            <!-- Plugin para recursos con encoding -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
 
-    <!-- Plugin de pruebas -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-surefire-plugin</artifactId>
-      <version>3.1.2</version>
-      <configuration>
-        <includes>
-          <include>**/*Test.java</include>
-        </includes>
-        <testFailureIgnore>false</testFailureIgnore>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
-
-
+            <!-- Plugin de pruebas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <testFailureIgnore>false</testFailureIgnore>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

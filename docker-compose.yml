@@ -18,16 +18,22 @@ services:
   backend:
     build:
       context: ./backend
+      dockerfile: Dockerfile
+    image: prueba-amaris-backend:latest
     container_name: amaris_backend
     depends_on:
       - postgres
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/amaris
+      SPRING_DATASOURCE_URL: jdbc:postgresql://amaris_postgres:5432/amaris
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_PROFILES_ACTIVE: dev
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+      JWT_SECRET: clave-super-secreta-12345678901234567890123456789012
+      JWT_EXPIRATION: 86400000
     networks:
       - amaris-net
 
