@@ -3,7 +3,7 @@ package com.amaris.backend.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class PreflightController {
 
     // Esto acepta explícitamente solicitudes OPTIONS en /api/auth/login

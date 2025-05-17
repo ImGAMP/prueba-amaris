@@ -3,19 +3,25 @@ package com.amaris.backend.controller;
 import com.amaris.backend.dto.UsuarioResponse;
 import com.amaris.backend.model.Usuario;
 import com.amaris.backend.service.UsuarioService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+    
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
@@ -44,7 +50,7 @@ public class UsuarioController {
         return usuarioService.findById(id)
                 .map(u -> {
                     u.setUsername(updated.getUsername());
-                    u.setPassword(updated.getPassword());
+                    u.setPassword(encoder.encode(updated.getPassword()));
                     return ResponseEntity.ok(jsonApiOne(usuarioService.save(u)));
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -57,7 +63,7 @@ public class UsuarioController {
     }
 
     private Map<String, Object> jsonApiOne(Usuario usuario) {
-        UsuarioResponse dto = new UsuarioResponse(usuario.getId(), usuario.getUsername(), usuario.isEnabled());
+        UsuarioResponse dto = new UsuarioResponse(usuario.getId(), usuario.getUsername(), usuario.getEnabled());
 
         Map<String, Object> data = new HashMap<>();
         data.put("type", "usuarios");

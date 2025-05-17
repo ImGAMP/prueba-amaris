@@ -1,0 +1,98 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------------< [0;36mcom.amaris:backend[0;1m >-------------------------[m
+[[1;34mINFO[m] [1mBuilding prueba-amaris-backend 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ war ]---------------------------------[m
+Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jcl/6.0.15/spring-jcl-6.0.15.pom
+Progress (1): 1.8 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/spring-jcl/6.0.15/spring-jcl-6.0.15.pom (1.8 kB at 5.2 kB/s)
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mbackend[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/imgamp/Documentos/prueba-amaris/backend/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mbackend[0;1m ---[m
+[[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[[1;34mINFO[m] Copying 3 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:compile[m [1m(default-compile)[m @ [36mbackend[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module! :source
+[[1;33mWARNING[m] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[[1;34mINFO[m] Compiling 23 source files with javac [debug target 17] to target/classes
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] COMPILATION ERROR : 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/SecurityConfig.java:[5,44] package org.springframework.boot.web.servlet does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[3,32] package org.springframework.boot does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[4,46] package org.springframework.boot.autoconfigure does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[5,40] package org.springframework.boot.builder does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[6,52] package org.springframework.boot.web.servlet.support does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[12,46] cannot find symbol
+  symbol: class SpringBootServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[11,2] cannot find symbol
+  symbol: class SpringBootApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[24,50] cannot find symbol
+  symbol:   class SpringApplicationBuilder
+  location: class com.amaris.backend.PruebaAmarisApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[24,15] cannot find symbol
+  symbol:   class SpringApplicationBuilder
+  location: class com.amaris.backend.PruebaAmarisApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/FilterInspector.java:[4,44] package org.springframework.boot.web.servlet does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/InitAdminUser.java:[5,32] package org.springframework.boot does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/InitAdminUser.java:[19,12] cannot find symbol
+  symbol:   class CommandLineRunner
+  location: class com.amaris.backend.config.InitAdminUser
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[3,40] package org.springframework.boot.builder does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[4,52] package org.springframework.boot.web.servlet.support does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[6,41] cannot find symbol
+  symbol: class SpringBootServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[8,50] cannot find symbol
+  symbol:   class SpringApplicationBuilder
+  location: class com.amaris.backend.ServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[8,15] cannot find symbol
+  symbol:   class SpringApplicationBuilder
+  location: class com.amaris.backend.ServletInitializer
+[[1;34mINFO[m] 17 errors 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  2.271 s
+[[1;34mINFO[m] Finished at: 2025-05-16T14:48:03-05:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile[m [1m(default-compile)[m on project [36mbackend[m: [1;31mCompilation failure[m: Compilation failure: 
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/SecurityConfig.java:[5,44] package org.springframework.boot.web.servlet does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[3,32] package org.springframework.boot does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[4,46] package org.springframework.boot.autoconfigure does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[5,40] package org.springframework.boot.builder does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[6,52] package org.springframework.boot.web.servlet.support does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[12,46] cannot find symbol
+[[1;31mERROR[m]   symbol: class SpringBootServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[11,2] cannot find symbol
+[[1;31mERROR[m]   symbol: class SpringBootApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[24,50] cannot find symbol
+[[1;31mERROR[m]   symbol:   class SpringApplicationBuilder
+[[1;31mERROR[m]   location: class com.amaris.backend.PruebaAmarisApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/PruebaAmarisApplication.java:[24,15] cannot find symbol
+[[1;31mERROR[m]   symbol:   class SpringApplicationBuilder
+[[1;31mERROR[m]   location: class com.amaris.backend.PruebaAmarisApplication
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/FilterInspector.java:[4,44] package org.springframework.boot.web.servlet does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/InitAdminUser.java:[5,32] package org.springframework.boot does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/config/InitAdminUser.java:[19,12] cannot find symbol
+[[1;31mERROR[m]   symbol:   class CommandLineRunner
+[[1;31mERROR[m]   location: class com.amaris.backend.config.InitAdminUser
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[3,40] package org.springframework.boot.builder does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[4,52] package org.springframework.boot.web.servlet.support does not exist
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[6,41] cannot find symbol
+[[1;31mERROR[m]   symbol: class SpringBootServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[8,50] cannot find symbol
+[[1;31mERROR[m]   symbol:   class SpringApplicationBuilder
+[[1;31mERROR[m]   location: class com.amaris.backend.ServletInitializer
+[[1;31mERROR[m] /home/imgamp/Documentos/prueba-amaris/backend/src/main/java/com/amaris/backend/ServletInitializer.java:[8,15] cannot find symbol
+[[1;31mERROR[m]   symbol:   class SpringApplicationBuilder
+[[1;31mERROR[m]   location: class com.amaris.backend.ServletInitializer
+[[1;31mERROR[m] -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

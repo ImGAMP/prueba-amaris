@@ -2,6 +2,7 @@ package com.amaris.backend.controller;
 
 import com.amaris.backend.client.EmpleadoClient;
 import com.amaris.backend.dto.EmpleadoResponse;
+import com.amaris.backend.service.EmpleadoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,18 +11,21 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/empleados")
+@RequestMapping("/empleados")
 public class EmpleadoController {
 
     private final EmpleadoClient empleadoClient;
+    private final EmpleadoService empleadoService;
 
-    public EmpleadoController(EmpleadoClient empleadoClient) {
+    public EmpleadoController(EmpleadoClient empleadoClient, EmpleadoService empleadoService) {
         this.empleadoClient = empleadoClient;
+        this.empleadoService = empleadoService;
     }
 
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<EmpleadoResponse> empleados = empleadoClient.getAllEmpleados();
+        empleados.forEach(empleadoService::calcularSalarioAnual);
         List<Map<String, Object>> dataList = empleados.stream().map(this::toJsonApi).toList();
         Map<String, Object> wrapper = new HashMap<>();
         wrapper.put("data", dataList);
@@ -29,9 +33,10 @@ public class EmpleadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable int id) {
+    public ResponseEntity<?> getById(@PathVariable("id") int id) {
         EmpleadoResponse emp = empleadoClient.getEmpleadoById(id);
         if (emp == null) return ResponseEntity.notFound().build();
+        empleadoService.calcularSalarioAnual(emp);
         Map<String, Object> wrapper = new HashMap<>();
         wrapper.put("data", toJsonApi(emp));
         return ResponseEntity.ok(wrapper);
@@ -47,6 +52,7 @@ public class EmpleadoController {
         attributes.put("employee_salary", emp.getEmployee_salary());
         attributes.put("employee_age", emp.getEmployee_age());
         attributes.put("profile_image", emp.getProfile_image());
+        attributes.put("employee_anual_salary", emp.getSalary_anual());
 
         data.put("attributes", attributes);
         return data;

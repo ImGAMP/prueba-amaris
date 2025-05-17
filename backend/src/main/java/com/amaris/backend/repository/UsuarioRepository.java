@@ -1,10 +1,14 @@
 package com.amaris.backend.repository;
 
 import com.amaris.backend.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository {
+    List<Usuario> findAll();
+    Optional<Usuario> findById(Long id);
     Optional<Usuario> findByUsername(String username);
+    Usuario save(Usuario usuario);
+    void deleteById(Long id);
 }

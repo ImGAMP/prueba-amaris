@@ -12,6 +12,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - amaris-net
 
@@ -24,7 +25,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://amaris_postgres:5432/amaris
       SPRING_DATASOURCE_USERNAME: postgres

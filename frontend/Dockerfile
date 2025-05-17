@@ -8,14 +8,18 @@ RUN npm install
 
 COPY . .
 
+# Limpiar posibles alteraciones
+RUN rm -rf dist/
+
 # Forzar build cliente (SPA) sin usar SSR
-RUN npx ng build --configuration production
+RUN npx ng build --configuration docker
+
 
 # Etapa 2: servidor web usando Nginx
 FROM nginx:alpine
 
-# Copiar SOLO el build para navegador (SPA)
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+# Copiar SOLO el contenido real del build Angular (SPA)
+COPY --from=build /app/dist/frontend/browser/ /usr/share/nginx/html/
 
 # Configuración de Nginx para rutas Angular
 COPY nginx.conf /etc/nginx/conf.d/default.conf

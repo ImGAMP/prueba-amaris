@@ -26,10 +26,8 @@ class EmpleadoClientTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
 
-    @Test
-    void testGetAllEmpleadosReturnsList() {
+        // Simula respuesta del API al cargar empleados
         EmpleadoResponse mockEmpleado = new EmpleadoResponse();
         mockEmpleado.setId(1);
         mockEmpleado.setEmployee_name("Test Employee");
@@ -39,6 +37,12 @@ class EmpleadoClientTest {
 
         when(restTemplate.getForObject(anyString(), eq(EmpleadoListResponse.class))).thenReturn(wrapper);
 
+        // Simula @PostConstruct
+        empleadoClient.cargarEmpleados();
+    }
+
+    @Test
+    void testGetAllEmpleadosReturnsListFromCache() {
         List<EmpleadoResponse> result = empleadoClient.getAllEmpleados();
 
         assertNotNull(result);
@@ -47,33 +51,30 @@ class EmpleadoClientTest {
     }
 
     @Test
-    void testGetEmpleadoByIdReturnsData() {
-        EmpleadoResponse emp = new EmpleadoResponse();
-        emp.setId(1);
-        emp.setEmployee_name("John Doe");
-
-        EmpleadoClient.EmpleadoWrapper wrapper = new EmpleadoClient.EmpleadoWrapper();
-        wrapper.setData(emp);
-
-        when(restTemplate.getForObject(contains("/employee/"), eq(EmpleadoClient.EmpleadoWrapper.class))).thenReturn(wrapper);
-
+    void testGetEmpleadoByIdReturnsFromCache() {
         EmpleadoResponse result = empleadoClient.getEmpleadoById(1);
+
         assertNotNull(result);
-        assertEquals("John Doe", result.getEmployee_name());
+        assertEquals(1, result.getId());
+        assertEquals("Test Employee", result.getEmployee_name());
     }
 
     @Test
-    void testGetAllEmpleadosReturnsEmptyWhenNull() {
-        when(restTemplate.getForObject(anyString(), eq(EmpleadoListResponse.class))).thenReturn(null);
-        List<EmpleadoResponse> result = empleadoClient.getAllEmpleados();
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testGetEmpleadoByIdReturnsNullWhenEmpty() {
-        when(restTemplate.getForObject(contains("/employee/"), eq(EmpleadoClient.EmpleadoWrapper.class))).thenReturn(null);
+    void testGetEmpleadoByIdReturnsNullIfNotCached() {
         EmpleadoResponse result = empleadoClient.getEmpleadoById(999);
         assertNull(result);
+    }
+
+    @Test
+    void testGetAllEmpleadosEmptyIfApiFails() {
+        // Simula llamada fallida
+        when(restTemplate.getForObject(anyString(), eq(EmpleadoListResponse.class))).thenReturn(null);
+
+        EmpleadoClient emptyClient = new EmpleadoClient(restTemplate);
+        emptyClient.cargarEmpleados();
+
+        List<EmpleadoResponse> result = emptyClient.getAllEmpleados();
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 }

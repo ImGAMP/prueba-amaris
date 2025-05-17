@@ -23,13 +23,23 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtUtils = jwtUtils;
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings("null") 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String uri = request.getRequestURI(); // /amaris-back/api/auth/login
+        boolean excluded = uri.contains("/api/auth");
+        System.out.println(">>> JwtFilter - shouldNotFilter uri: " + uri + ", excluded: " + excluded);
+        return excluded;
+    }
+    
+    @SuppressWarnings("null") 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
+        System.out.println(">>> JwtFilter - doFilterInternal for: " + request.getServletPath());
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
@@ -44,9 +54,15 @@ public class JwtFilter extends OncePerRequestFilter {
                     );
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
+                    System.out.println(">>> JwtFilter - Authenticated user: " + username);
+                } else {
+                    System.out.println(">>> JwtFilter - Invalid token");
                 }
             }
+        } else {
+            System.out.println(">>> JwtFilter - No valid Authorization header found");
         }
+
         filterChain.doFilter(request, response);
     }
 }

@@ -1,7 +1,7 @@
 package com.amaris.backend.service;
 
 import com.amaris.backend.model.Usuario;
-import com.amaris.backend.repository.UsuarioRepository;
+import com.amaris.backend.repository.UsuarioRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class UsuarioServiceTest {
 
     @Mock
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepositoryImpl usuarioRepository;
 
     @InjectMocks
     private UsuarioService usuarioService;
@@ -29,7 +29,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testFindAll() {
+    void testFindAll() throws java.sql.SQLException {
         Usuario u1 = new Usuario();
         Usuario u2 = new Usuario();
         when(usuarioRepository.findAll()).thenReturn(Arrays.asList(u1, u2));
@@ -38,7 +38,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testFindById() {
+    void testFindById() throws java.sql.SQLException {
         Usuario u = new Usuario();
         u.setId(1L);
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(u));
@@ -48,7 +48,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testSave() {
+    void testSave() throws java.sql.SQLException {
         Usuario u = new Usuario();
         u.setUsername("test");
         when(usuarioRepository.save(any())).thenReturn(u);
@@ -57,7 +57,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testDeleteById() {
+    void testDeleteById() throws java.sql.SQLException {
         usuarioService.deleteById(1L);
         verify(usuarioRepository, times(1)).deleteById(1L);
     }

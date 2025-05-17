@@ -1,2 +1,0 @@
--- init.sql vacío porque los datos se insertan desde Spring Boot, se mantiene para que la base de datos se inicialice correctamente en caso de que no se inserten datos desde la aplicación
--- y para que la base de datos se pueda inicializar desde un script SQL en caso de que no se pueda inicializar desde la aplicación.

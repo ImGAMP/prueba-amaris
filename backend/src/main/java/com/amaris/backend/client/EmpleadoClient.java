@@ -5,36 +5,44 @@ import com.amaris.backend.dto.EmpleadoResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import jakarta.annotation.PostConstruct;
+import java.util.*;
 
 @Component
 public class EmpleadoClient {
 
     private final RestTemplate restTemplate;
 
+    // Cache local en memoria
+    private final Map<Integer, EmpleadoResponse> empleadoMap = new HashMap<>();
+
     public EmpleadoClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+    @PostConstruct
+    public void cargarEmpleados() {
+        try {
+            EmpleadoListResponse response = restTemplate.getForObject(
+                    "http://dummy.restapiexample.com/api/v1/employees",
+                    EmpleadoListResponse.class
+            );
+            if (response != null && response.getData() != null) {
+                for (EmpleadoResponse emp : response.getData()) {
+                    empleadoMap.put(emp.getId(), emp);
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println("Error cargando empleados: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
     public List<EmpleadoResponse> getAllEmpleados() {
-        EmpleadoListResponse response = restTemplate.getForObject(
-                "http://dummy.restapiexample.com/api/v1/employees",
-                EmpleadoListResponse.class
-        );
-        return response != null ? response.getData() : List.of();
+        return new ArrayList<>(empleadoMap.values());
     }
 
     public EmpleadoResponse getEmpleadoById(int id) {
-        EmpleadoWrapper response = restTemplate.getForObject(
-                "http://dummy.restapiexample.com/api/v1/employee/" + id,
-                EmpleadoWrapper.class
-        );
-        return response != null ? response.getData() : null;
-    }
-
-    static class EmpleadoWrapper {
-        private EmpleadoResponse data;
-        public EmpleadoResponse getData() { return data; }
-        public void setData(EmpleadoResponse data) { this.data = data; }
+        return empleadoMap.get(id);
     }
 }

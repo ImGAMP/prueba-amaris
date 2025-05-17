@@ -1,6 +1,9 @@
 # ==== Squema =====
 crear_estructura.sh
 
+#=== Others ===
+war-content/
+
 # === Java / Spring Boot ===
 target/
 *.log
@@ -15,8 +18,6 @@ target/
 *.swp
 
 # === Spring Boot config ===
-application*.yml
-application*.properties
 .env
 
 # === Maven ===

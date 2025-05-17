@@ -1,7 +1,7 @@
 package com.amaris.backend.security;
 
 import com.amaris.backend.model.Usuario;
-import com.amaris.backend.repository.UsuarioRepository;
+import com.amaris.backend.repository.UsuarioRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class CustomUserDetailsServiceTest {
 
     @Mock
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepositoryImpl usuarioRepository;
 
     @InjectMocks
     private CustomUserDetailsService service;
@@ -29,7 +29,7 @@ class CustomUserDetailsServiceTest {
     }
 
     @Test
-    void testLoadUserByUsernameExists() {
+    void testLoadUserByUsernameExists() throws Exception {
         Usuario u = new Usuario();
         u.setUsername("admin");
         u.setPassword("secret");
@@ -40,7 +40,7 @@ class CustomUserDetailsServiceTest {
     }
 
     @Test
-    void testLoadUserByUsernameNotFound() {
+    void testLoadUserByUsernameNotFound() throws Exception {
         when(usuarioRepository.findByUsername("ghost")).thenReturn(Optional.empty());
         assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("ghost"));
     }

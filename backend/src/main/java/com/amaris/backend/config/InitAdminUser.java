@@ -2,31 +2,41 @@ package com.amaris.backend.config;
 
 import com.amaris.backend.model.Usuario;
 import com.amaris.backend.repository.UsuarioRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import jakarta.annotation.PostConstruct;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class InitAdminUser {
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder encoder;
+
+    public InitAdminUser(UsuarioRepository usuarioRepository, PasswordEncoder encoder) {
+        this.usuarioRepository = usuarioRepository;
+        this.encoder = encoder;
     }
 
-    @Bean
-    public CommandLineRunner initAdmin(UsuarioRepository usuarioRepository, BCryptPasswordEncoder encoder) {
-        return args -> {
-            String username = "admin";
-            if (usuarioRepository.findByUsername(username).isEmpty()) {
-                Usuario usuario = new Usuario();
-                usuario.setUsername(username);
-                usuario.setPassword(encoder.encode("1234"));
-                usuario.setEnabled(true);
-                usuarioRepository.save(usuario);
-                System.out.println("Usuario admin creado con contraseña: 1234");
+    @PostConstruct
+    public void initAdmin() {
+        System.out.println("🛠 Ejecutando InitAdminUser...");
+        try {
+            if (usuarioRepository.findByUsername("admin").isEmpty()) {
+                System.out.println("🟢 No existe admin, creando...");
+                Usuario u = new Usuario();
+                u.setUsername("admin");
+                u.setPassword(encoder.encode("1234"));
+                u.setEnabled(true);
+                usuarioRepository.save(u);
+                System.out.println("✅ Usuario admin creado");
+            } else {
+                System.out.println("🟡 Usuario admin ya existe");
             }
-        };
+        } catch (Exception e) {
+            System.out.println("❌ Error en InitAdminUser:");
+            e.printStackTrace();
+        }
+        System.out.println("🔍 Usuarios en BD: " + usuarioRepository.findAll().size());
     }
+
 }

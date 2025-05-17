@@ -11,11 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 
-import java.util.Collections;
+import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -45,7 +42,8 @@ class AuthControllerTest {
         login.setUsername("admin");
         login.setPassword("1234");
 
-        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
+        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+                .thenReturn(authentication);
         when(jwtUtils.generateToken("admin")).thenReturn("token.jwt");
 
         ResponseEntity<?> response = authController.login(login);
@@ -58,19 +56,16 @@ class AuthControllerTest {
         login.setUsername("admin");
         login.setPassword("wrong");
 
-        when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("Bad credentials"));
+        when(authenticationManager.authenticate(any()))
+                .thenThrow(new BadCredentialsException("Bad credentials"));
 
         assertThrows(BadCredentialsException.class, () -> authController.login(login));
     }
 
     @Test
     void testMe() {
-        SecurityContext context = mock(SecurityContext.class);
-        User user = new User("admin", "", Collections.emptyList());
-        when(context.getAuthentication()).thenReturn(new UsernamePasswordAuthenticationToken(user, null));
-        SecurityContextHolder.setContext(context);
-
-        ResponseEntity<?> response = authController.me();
+        Principal principal = () -> "admin";
+        ResponseEntity<?> response = authController.me(principal);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("admin", response.getBody());
     }

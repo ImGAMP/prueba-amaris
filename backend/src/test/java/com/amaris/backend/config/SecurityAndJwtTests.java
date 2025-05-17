@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class SecurityAndJwtTests {
 
     // Para SecurityConfig
@@ -41,7 +39,7 @@ class SecurityAndJwtTests {
 
     @Test
     void testSecurityFilterChainInitialization() throws Exception {
-        SecurityFilterChain chain = securityConfig.filterChain(mock(org.springframework.security.config.annotation.web.builders.HttpSecurity.class));
+        SecurityFilterChain chain = securityConfig.securityFilterChain(mock(org.springframework.security.config.annotation.web.builders.HttpSecurity.class));
         assertNotNull(chain);
     }
 

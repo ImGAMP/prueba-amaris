@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadoService {
-  private baseUrl = 'http://localhost:8080/api/empleados';
+  private baseUrl = `${environment.apiUrl}/empleados`;
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +38,7 @@ export class EmpleadoService {
           id: item.id,
           employee_name: attr.employee_name,
           employee_salary: attr.employee_salary,
-          salary_anual: attr.employee_salary * 12,
+          salary_anual: attr.employee_anual_salary,
           employee_age: attr.employee_age,
           profile_image: attr.profile_image
         };

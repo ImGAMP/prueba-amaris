@@ -6,14 +6,14 @@ Este proyecto es una solución técnica para la evaluación de candidatos al rol
 
 La solución se divide en dos aplicaciones desacopladas:
 
-- **Backend**: Java con Spring Boot y JWT (packaging WAR compatible con WildFly o ejecución embebida)
-- **Frontend**: Angular 17 SSR con autenticación y consumo del backend
+- **Backend**: Java con Spring (WAR compatible con WildFly)
+- **Frontend**: Angular 17 con autenticación y búsqueda
 
 ## 🧩 Estructura general del repositorio
 
 ```plaintext
-├── backend/        → API REST con Spring Boot (Java 17)
-├── frontend/       → Aplicación Angular 17 (SSR-ready)
+├── backend/        → API REST con Spring MVC tradicional (Java 17)
+├── frontend/       → Aplicación Angular 17 (SPA)
 └── docker-compose.yml
 ```
 
@@ -24,103 +24,60 @@ La solución se divide en dos aplicaciones desacopladas:
 - Acceso protegido a rutas `/api/usuarios` y `/api/empleados`
 - Angular maneja el token vía `TokenInterceptor`
 
-## 📦 Backend (Spring Boot)
+## 📦 Backend (Spring MVC)
 
 | Característica        | Detalle                                  |
 |-----------------------|------------------------------------------|
-| Framework             | Spring Boot 3.2.4                         |
+| Framework             | Spring MVC clásico (WAR)                 |
 | Seguridad             | Spring Security + JWT                    |
-| Persistencia          | JPA + PostgreSQL                         |
-| Cliente externo       | Consumo de `https://dummy.restapiexample.com` |
-| Pruebas               | JUnit + Mockito (alta cobertura con JaCoCo) |
-| Empaquetado           | `.war` listo para WildFly o ejecución embebida |
+| Persistencia          | JDBC con PostgreSQL                      |
+| Cliente externo       | Proxy a `https://dummy.restapiexample.com` |
+| Pruebas               | JUnit + Mockito + JaCoCo                 |
+| Empaquetado           | `.war` listo para WildFly                |
 
 ## 💻 Frontend (Angular 17)
 
 | Característica        | Detalle                                  |
 |-----------------------|------------------------------------------|
-| Framework             | Angular v19.2                            |
-| SSR                   | Compatible con Server Side Rendering     |
+| Framework             | Angular 17 SPA                           |
 | UI                    | Bootstrap 5.3                            |
-| Protección de rutas   | `auth.guard.ts`                          |
-| Logout                | Botón funcional en navbar                |
-| Pruebas               | Karma + Jasmine (13 pruebas exitosas)    |
+| Funcionalidad         | Login, logout, búsqueda y CRUD local     |
+| Pruebas               | Karma + Jasmine con coverage             |
 
-## 🚀 Ejecución local
+## 🚀 Ejecución local con Docker
 
-### Requisitos
-
-- Docker y Docker Compose
-- Java 17 + Maven
-- Node.js + Angular CLI
-
-### Levantar todo con Docker
+**Desarrollo recomendado:**
 
 ```bash
-docker compose up --build
+docker-compose down -v --remove-orphans
+docker-compose build --no-cache && docker-compose up
 ```
 
-- Backend: `http://localhost:8080`
-- Frontend: `http://localhost:4200`
+| Componente | URL                          |
+|------------|------------------------------|
+| Frontend   | http://localhost:4200/auth/login |
+| Backend    | http://localhost:8081/amaris-back/api |
 
-### Correr backend manualmente (Spring Boot autocontenedor)
-
-```bash
-cd backend
-mvn clean package
-java -jar target/prueba-amaris.war
-```
-
-### Correr frontend manualmente
-
-```bash
-cd frontend
-npm install
-ng serve
-```
-
-## 🧪 Pruebas
+## 🧪 Pruebas y cobertura
 
 ### Backend
 
 ```bash
 cd backend
-mvn test
+mvn clean verify
 ```
 
-- JaCoCo habilitado → `target/site/jacoco/index.html`
+- Reporte JaCoCo: `backend/target/site/jacoco/index.html`
 
 ### Frontend
 
 ```bash
 cd frontend
+npm install
 npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
 ```
 
-- Ejecuta 13 pruebas unitarias con reporte de cobertura
-
-## 🧰 Endpoints clave
-
-- `POST /api/auth/login` → Autenticación con JSON `{username, password}`
-- `GET /api/auth/me` → Usuario actual (JWT)
-- `GET /api/usuarios` → Listado de usuarios
-- `GET /api/empleados` → Proxy a dummy.restapiexample.com
-
-## 📦 Despliegue en WildFly (opcional)
-
-1. Empaquetar el proyecto:
-   ```bash
-   mvn clean package -DskipTests
-   ```
-2. Copiar `target/prueba-amaris.war` al directorio de despliegue de WildFly:
-   ```bash
-   cp target/prueba-amaris.war $WILDFLY_HOME/standalone/deployments/
-   ```
-3. Iniciar WildFly:
-   ```bash
-   $WILDFLY_HOME/bin/standalone.sh
-   ```
-4. Acceder al backend: `http://localhost:8080/prueba-amaris/api`
+- Reporte: `frontend/coverage/index.html`
 
 ## 📄 Credenciales de prueba
 
@@ -128,15 +85,6 @@ npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-cove
 Usuario: admin
 Contraseña: 1234
 ```
-
-## 🧠 Futuras mejoras
-
-- Refactor a microservicios independientes
-- Agregar API Gateway y Service Discovery
-- Añadir Redis o caché intermedio
-- Monitorización Prometheus + Grafana
-
----
 
 ## 👨‍💻 Autor
 
