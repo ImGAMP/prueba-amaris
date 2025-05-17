@@ -25,7 +25,7 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call logout on AuthService when logout is triggered', () => {
+  it('should call logout from AuthService when logout() is executed', () => {
     component.logout();
     expect(authServiceSpy.logout).toHaveBeenCalled();
   });

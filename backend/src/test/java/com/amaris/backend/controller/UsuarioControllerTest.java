@@ -4,21 +4,24 @@ import com.amaris.backend.model.Usuario;
 import com.amaris.backend.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 class UsuarioControllerTest {
 
     @Mock
     private UsuarioService usuarioService;
+
+    @Mock
+    private BCryptPasswordEncoder encoder;
 
     @InjectMocks
     private UsuarioController usuarioController;
@@ -28,11 +31,17 @@ class UsuarioControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
         sample = new Usuario();
         sample.setId(1L);
         sample.setUsername("admin");
         sample.setPassword("1234");
         sample.setEnabled(true);
+
+        // inyección manual porque el encoder es @Autowired y privado
+        setField(usuarioController, "encoder", encoder);
+
+        when(encoder.encode(anyString())).thenReturn("encoded");
     }
 
     @Test

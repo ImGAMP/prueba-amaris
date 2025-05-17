@@ -2,11 +2,10 @@ package com.amaris.backend.controller;
 
 import com.amaris.backend.client.EmpleadoClient;
 import com.amaris.backend.dto.EmpleadoResponse;
+import com.amaris.backend.service.EmpleadoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -18,6 +17,9 @@ class EmpleadoControllerTest {
 
     @Mock
     private EmpleadoClient empleadoClient;
+
+    @Mock
+    private EmpleadoService empleadoService;
 
     @InjectMocks
     private EmpleadoController empleadoController;
@@ -32,7 +34,15 @@ class EmpleadoControllerTest {
         EmpleadoResponse e = new EmpleadoResponse();
         e.setId(1);
         e.setEmployee_name("Test Employee");
+        e.setEmployee_salary(1000);
+        e.setEmployee_age(30);
+
         when(empleadoClient.getAllEmpleados()).thenReturn(List.of(e));
+        doAnswer(invocation -> {
+            EmpleadoResponse emp = invocation.getArgument(0);
+            emp.setSalary_anual(emp.getEmployee_salary() * 12);
+            return null;
+        }).when(empleadoService).calcularSalarioAnual(any());
 
         ResponseEntity<?> response = empleadoController.getAll();
         assertEquals(200, response.getStatusCodeValue());
@@ -43,7 +53,15 @@ class EmpleadoControllerTest {
         EmpleadoResponse e = new EmpleadoResponse();
         e.setId(1);
         e.setEmployee_name("Test Employee");
+        e.setEmployee_salary(2000);
+        e.setEmployee_age(28);
+
         when(empleadoClient.getEmpleadoById(1)).thenReturn(e);
+        doAnswer(invocation -> {
+            EmpleadoResponse emp = invocation.getArgument(0);
+            emp.setSalary_anual(emp.getEmployee_salary() * 12);
+            return null;
+        }).when(empleadoService).calcularSalarioAnual(any());
 
         ResponseEntity<?> response = empleadoController.getById(1);
         assertEquals(200, response.getStatusCodeValue());
@@ -56,7 +74,6 @@ class EmpleadoControllerTest {
         assertEquals(404, response.getStatusCodeValue());
     }
 
-    @SuppressWarnings("null")
     @Test
     void testGetAllHandlesEmptyList() {
         when(empleadoClient.getAllEmpleados()).thenReturn(List.of());

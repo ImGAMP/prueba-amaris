@@ -1,19 +1,20 @@
 package com.amaris.backend.config;
 
+import com.amaris.backend.security.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import java.io.IOException;
 
@@ -22,74 +23,101 @@ import static org.mockito.Mockito.*;
 
 class SecurityAndJwtTests {
 
-    // Para SecurityConfig
-    @Mock
-    private JwtFilter jwtFilter;
+    @Mock private JwtFilter jwtFilter;
+    @Mock private JwtUtils jwtUtils;
+    @Mock private CustomUserDetailsService userDetailsService;
+    @Mock private AuthenticationConfiguration authenticationConfiguration;
+    @Mock private FilterChain filterChain;
 
-    @Mock
-    private AuthenticationConfiguration authenticationConfiguration;
-
-    @InjectMocks
-    private SecurityConfig securityConfig;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    void testSecurityFilterChainInitialization() throws Exception {
-        SecurityFilterChain chain = securityConfig.securityFilterChain(mock(org.springframework.security.config.annotation.web.builders.HttpSecurity.class));
-        assertNotNull(chain);
-    }
-
-
-    @Test
-    void testAuthenticationManager() throws Exception {
-        AuthenticationManager mockManager = mock(AuthenticationManager.class);
-        when(authenticationConfiguration.getAuthenticationManager()).thenReturn(mockManager);
-        assertEquals(mockManager, securityConfig.authenticationManager(authenticationConfiguration));
-    }
-
-    // Para JwtFilter
-    @Mock
-    private JwtUtils jwtUtils;
+    @InjectMocks private SecurityConfig securityConfig;
 
     private JwtFilter filter;
 
     @BeforeEach
-    void setUpFilter() {
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
         filter = new JwtFilter(jwtUtils);
+        SecurityContextHolder.clearContext();
     }
 
     @Test
-    void testDoFilterInternalValidToken() throws ServletException, IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        FilterChain chain = mock(FilterChain.class);
+    void testAuthenticationManagerBean() throws Exception {
+        AuthenticationManager mockManager = mock(AuthenticationManager.class);
+        when(authenticationConfiguration.getAuthenticationManager()).thenReturn(mockManager);
+        AuthenticationManager result = securityConfig.authenticationManager(authenticationConfiguration);
+        assertNotNull(result);
+        assertEquals(mockManager, result);
+    }
 
-        String token = "Bearer valid.jwt.token";
+    @Test
+    void testCorsFilterConfiguration() {
+        assertNotNull(securityConfig.corsFilter());
+    }
 
-        when(request.getHeader("Authorization")).thenReturn(token);
-        when(jwtUtils.extractUsername(anyString())).thenReturn("testuser");
-        when(jwtUtils.validateToken(anyString())).thenReturn(true);
+    @Test
+    void testPasswordEncoder() {
+        assertNotNull(securityConfig.passwordEncoder());
+        assertTrue(securityConfig.passwordEncoder().matches("test", securityConfig.passwordEncoder().encode("test")));
+    }
 
-        filter.doFilterInternal(request, response, chain);
+    @Test
+    void testShouldNotFilterTrueForAuthRoute() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/auth/login");
+        assertTrue(filter.shouldNotFilter(request));
+    }
 
-        verify(chain, times(1)).doFilter(request, response);
+    @Test
+    void testShouldNotFilterFalseForProtectedRoute() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/usuarios");
+        assertFalse(filter.shouldNotFilter(request));
+    }
+
+    @Test
+    void testDoFilterInternalWithValidToken() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/secure");
+        request.addHeader("Authorization", "Bearer valid.jwt.token");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        when(jwtUtils.extractUsername("valid.jwt.token")).thenReturn("testuser");
+        when(jwtUtils.validateToken("valid.jwt.token")).thenReturn(true);
+
+        filter.doFilterInternal(request, response, filterChain);
+
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(filterChain, times(1)).doFilter(request, response);
     }
 
     @Test
-    void testDoFilterInternalNoToken() throws ServletException, IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        FilterChain chain = mock(FilterChain.class);
+    void testDoFilterInternalWithInvalidToken() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/secure");
+        request.addHeader("Authorization", "Bearer invalid.token");
 
-        when(request.getHeader("Authorization")).thenReturn(null);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
-        filter.doFilterInternal(request, response, chain);
+        when(jwtUtils.extractUsername("invalid.token")).thenReturn("user");
+        when(jwtUtils.validateToken("invalid.token")).thenReturn(false);
 
-        verify(chain, times(1)).doFilter(request, response);
+        filter.doFilterInternal(request, response, filterChain);
+
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(filterChain, times(1)).doFilter(request, response);
+    }
+
+    @Test
+    void testDoFilterInternalWithNoAuthorizationHeader() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/api/secure");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        filter.doFilterInternal(request, response, filterChain);
+
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(filterChain, times(1)).doFilter(request, response);
     }
 }
